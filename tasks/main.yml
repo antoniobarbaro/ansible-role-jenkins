@@ -30,3 +30,18 @@
     state: started
     enabled: yes
 
+- name: generate ssh keys for user jenkins
+  user:
+    name: jenkins
+    generate_ssh_key: yes
+    ssh_key_bits: 4096
+    ssh_key_file: .ssh/id_rsa
+    ssh_key_comment: jenkins
+    shell: /bin/bash
+
+- name: copy ansible defaults values
+  copy:
+    src: files/.ansible.cfg
+    dest: /var/lib/jenkins/.ansible.cfg
+    owner: jenkins
+    group: jenkins 
